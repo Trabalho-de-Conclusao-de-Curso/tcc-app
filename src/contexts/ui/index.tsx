@@ -1,13 +1,18 @@
 import React, { createContext, useState, useEffect, useCallback } from 'react';
-
-import AsyncStorage from '@react-native-community/async-storage';
+import { DefaultTheme } from 'styled-components';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Localization from 'expo-localization';
 
 import getStrings from '../../utils/strings';
 
+import themeLight from '../../themes/light';
+import themeDark from '../../themes/dark';
+
+import { TypeStrings } from '../../models/ui';
+
 type TypeUiContext = {
     strings: TypeStrings;
-    theme: string;
+    theme: DefaultTheme;
     language: string;
     loading: boolean;
 };
@@ -18,7 +23,7 @@ export const UiProvider: React.FC = ({ children }) => {
     const tokenKey = '@tccapp:token:';
 
     const [strings, setStrings] = useState<TypeStrings>({});
-    const [theme, setTheme] = useState<string>('light');
+    const [theme, setTheme] = useState<DefaultTheme>(themeLight);
     const [language, setLanguage] = useState<string>('pt-br');
     const [loading, setLoading] = useState<boolean>(false);
 
@@ -31,7 +36,8 @@ export const UiProvider: React.FC = ({ children }) => {
             //Get theme data from local storage
             const themeData = await AsyncStorage.getItem(tokenKey + 'theme');
 
-            if (themeData !== null) setTheme(themeData);
+            if (themeData !== null)
+                setTheme(themeData === 'light' ? themeLight : themeDark);
 
             setLoading(false);
         };

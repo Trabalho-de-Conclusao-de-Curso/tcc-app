@@ -1,0 +1,17 @@
+export default {
+    title: 'dark',
+
+    colors: {
+        primary: '#6C63FF',
+        secondary: '#FF6E6E',
+        background: '#263238',
+        section: '#1D272C',
+        appBar: '#12191D',
+        rating: '#F37A10',
+        font: {
+            main: '#F8F8F8',
+            light: '#F2F2F2',
+            darker: '#FFFFFF',
+        },
+    },
+};

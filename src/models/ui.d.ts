@@ -1,3 +1,3 @@
-type TypeStrings = {
+export type TypeStrings = {
     [key: string]: string;
 };
