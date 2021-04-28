@@ -4,6 +4,7 @@ import api from './api';
 const urls = {
     registerUser: 'registerUser',
     getUser: 'getUser/',
+    editUser: 'editProfile/',
     uploadInterests: 'uploadInterests',
     uploadPushToken: 'uploadPushToken',
     uploadFavOpps: 'uploadFavOpps/',
@@ -17,6 +18,9 @@ const authApi = {
     registerUser: () => null,
 
     getUserData: (id: string) => api.get<TypeUser>(urls.getUser + id),
+
+    editUser: (id: string, data: TypeUser) =>
+        api.post(urls.editUser + id, data),
 
     uploadInterests: (interests: TypeInterests) =>
         api.post(urls.uploadInterests, interests),

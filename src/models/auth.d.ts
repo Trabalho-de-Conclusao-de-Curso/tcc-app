@@ -20,14 +20,7 @@ export type TypeUser = {
 };
 
 export type TypeInterests = {
-    animals: boolean;
-    arts: boolean;
-    education: boolean;
-    environment: boolean;
-    health: boolean;
-    humanRights: boolean;
-    others: boolean;
-    sports: boolean;
+    [key: string]: boolean;
 };
 
 export type TypeRegOppForm = {
