@@ -1,29 +1,51 @@
 import React from 'react';
+import { View } from 'react-native';
 
-import styled from 'styled-components/native';
 import { ThemeProvider } from 'styled-components';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
+import { useFonts } from 'expo-font';
 
 import useUi from './contexts/ui/useUi';
 
-const SafeArea = styled.View`
-    background-color: ${props => props.theme.colors.background};
-    flex: 1;
-`;
+//Navigation
+import { NavigationContainer } from '@react-navigation/native';
+import RootNav from './navigators/RootNav';
+
+//Components
+import Loading from './components/Loading';
 
 const App: React.FC = () => {
     const { theme } = useUi();
+    const insets = useSafeAreaInsets();
+
+    const [loaded] = useFonts({
+        RobotoMono: require('./fonts/RobotoMono.ttf'),
+    });
+
+    if (!loaded) return <Loading />;
 
     return (
-        <ThemeProvider theme={theme}>
-            <StatusBar style={theme.title === 'light' ? 'dark' : 'light'} />
-            <SafeAreaView
-                style={{ backgroundColor: theme.colors.appBar, flex: 1 }}
-            >
-                <SafeArea></SafeArea>
-            </SafeAreaView>
-        </ThemeProvider>
+        <NavigationContainer>
+            <ThemeProvider theme={theme}>
+                <StatusBar style={theme.title === 'light' ? 'dark' : 'light'} />
+                <View
+                    style={{
+                        height: insets.top,
+                        width: '100%',
+                        backgroundColor: theme.colors.appBar,
+                    }}
+                />
+                <RootNav />
+                <View
+                    style={{
+                        height: insets.bottom,
+                        width: '100%',
+                        backgroundColor: theme.colors.appBar,
+                    }}
+                />
+            </ThemeProvider>
+        </NavigationContainer>
     );
 };
 
