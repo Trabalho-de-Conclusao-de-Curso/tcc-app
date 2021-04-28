@@ -14,6 +14,6 @@ export type TypeOpp = {
     period: string;
     photos: string[];
     rating: number;
-    requirements: string[];
+    requirements: string;
     usersRegistered: string[];
 };
