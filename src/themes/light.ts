@@ -5,7 +5,7 @@ export default {
         primary: '#6C63FF',
         secondary: '#FF6E6E',
         background: '#FFFFFF',
-        section: 'gray',
+        section: '#F1F1F1',
         appBar: '#F8F8F8',
         rating: '#F37A10',
         font: {
