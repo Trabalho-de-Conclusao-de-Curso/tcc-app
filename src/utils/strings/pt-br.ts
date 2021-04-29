@@ -20,4 +20,6 @@ export default {
     errorConfirm: 'Falha ao Confirmar',
     mustSelectAtLeastOne: 'Você precisa selecionar ao menos um para continuar.',
     somethinWentWrong: 'Algo deu errado, tente novamente mais tarde.',
+
+    seeDetails: 'Ver Detalhes',
 };

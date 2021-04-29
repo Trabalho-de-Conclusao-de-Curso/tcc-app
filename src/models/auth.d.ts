@@ -4,7 +4,7 @@ export type TypeUser = {
     course: string;
     email: string;
     facebook: string;
-    favoriteOpportunities: string[];
+    favoritesOpportunities: string[];
     gender: string;
     id: string;
     institution: string;
