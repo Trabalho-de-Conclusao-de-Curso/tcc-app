@@ -48,7 +48,7 @@ export const LblName = styled.Text`
 `;
 
 export const LblDescription = styled.Text`
-    width: 75%;
+    width: 80%;
     font-family: RobotoMono;
     font-style: normal;
     font-weight: normal;

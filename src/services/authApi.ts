@@ -11,7 +11,7 @@ const urls = {
     editUser: 'editProfile/',
     uploadInterests: 'uploadInterests/',
     uploadPushToken: 'uploadPushToken',
-    uploadFavOpps: 'uploadFavOpps/',
+    uploadFavOpps: 'uploadFavList/',
     changePhoto: 'changePhoto/',
     registerForOpp: 'registerForOpp',
     cancelRegForOpp: 'cancelRegistration',
@@ -22,7 +22,7 @@ const authApi = {
     //TODO: implement registerUser
     registerUser: () => null,
 
-    login: (data: TypeLoginData) => api.post(urls.login, data),
+    login: (data: TypeLoginData) => api.post<TypeUser>(urls.login, data),
 
     editUser: (id: string, data: TypeUser) =>
         api.post(urls.editUser + id, data),
@@ -32,8 +32,8 @@ const authApi = {
 
     uploadPushToken: (token: string) => api.post(urls.uploadPushToken, token),
 
-    uploadFavOpps: (userId: string, data: string[]) =>
-        api.post(urls.uploadFavOpps + userId, data),
+    uploadFavOpps: (userId: string, favoritesOpportunities: string[]) =>
+        api.post(urls.uploadFavOpps + userId, { favoritesOpportunities }),
 
     changePhoto: (id: string, data: FormData) =>
         api.post(urls.changePhoto + id, data),

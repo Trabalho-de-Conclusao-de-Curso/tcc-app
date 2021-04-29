@@ -1,8 +1,17 @@
-import React, { createContext, useState, useEffect, useCallback } from 'react';
+import React, {
+    createContext,
+    useState,
+    useEffect,
+    useCallback,
+    Dispatch,
+    SetStateAction,
+} from 'react';
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { TypeInterests, TypeUser, TypeLoginData } from '../../models/auth';
 import * as Facebook from 'expo-facebook';
 import * as GoogleSignIn from 'expo-google-sign-in';
+
+import { TypeInterests, TypeUser, TypeLoginData } from '../../models/auth';
 import { authApi } from '../../services';
 
 type AuthContextData = {
@@ -10,12 +19,13 @@ type AuthContextData = {
     logged: boolean;
     loading: boolean;
     filter: TypeInterests | null;
+    setFilter: Dispatch<SetStateAction<TypeInterests | null>>;
     interestsFilled: boolean;
     uploadInterests: (interests: TypeInterests) => void;
     uploadPushToken: () => void;
     cancelRegForOpp: () => void;
     registerForOpp: () => void;
-    uploadFavOpps: () => void;
+    uploadFavOpps: (oppId: string) => void;
     editUser: () => void;
     logout: () => void;
     login: (type: string) => void;
@@ -67,6 +77,14 @@ export const AuthProvider: React.FC = ({ children }) => {
         setInterestsFilled(intFilled);
     }, [user]);
 
+    const updateUser = async (newUser: TypeUser) => {
+        await AsyncStorage.setItem(
+            tokenKey + 'userData',
+            JSON.stringify(newUser)
+        );
+        setUser(newUser);
+    };
+
     //TODO: implement editUser
     const editUser = useCallback(async () => {}, []);
 
@@ -115,12 +133,7 @@ export const AuthProvider: React.FC = ({ children }) => {
 
                     const { data } = await authApi.login(loginData);
 
-                    setUser(data);
-
-                    await AsyncStorage.setItem(
-                        tokenKey + 'userData',
-                        JSON.stringify(data)
-                    );
+                    updateUser(data);
                 } catch ({ message }) {
                     console.log(`Facebook Login Error: ${message}`);
                 } finally {
@@ -147,12 +160,7 @@ export const AuthProvider: React.FC = ({ children }) => {
 
                     const { data } = await authApi.login(loginData);
 
-                    setUser(data);
-
-                    await AsyncStorage.setItem(
-                        tokenKey + 'userData',
-                        JSON.stringify(data)
-                    );
+                    updateUser(data);
                 } catch (err) {
                     console.log(err);
                 } finally {
@@ -179,11 +187,7 @@ export const AuthProvider: React.FC = ({ children }) => {
 
                 const newUser: TypeUser = { ...user!, interests };
 
-                await AsyncStorage.setItem(
-                    tokenKey + 'userData',
-                    JSON.stringify(newUser)
-                );
-                setUser(newUser);
+                updateUser(newUser);
 
                 await AsyncStorage.setItem(
                     tokenKey + 'filterData',
@@ -209,7 +213,28 @@ export const AuthProvider: React.FC = ({ children }) => {
     const registerForOpp = useCallback(async () => {}, []);
 
     //TODO implement uploadFavOpps
-    const uploadFavOpps = useCallback(async () => {}, []);
+    const uploadFavOpps = useCallback(
+        async (oppId: string) => {
+            let data: string[] = [];
+            if (user!.favoritesOpportunities.includes(oppId)) {
+                user!.favoritesOpportunities.forEach(item => {
+                    if (item !== oppId) data.push(item);
+                });
+            } else {
+                data = [...user!.favoritesOpportunities, oppId];
+            }
+
+            const newUser: TypeUser = {
+                ...user!,
+                favoritesOpportunities: data,
+            };
+
+            updateUser(newUser);
+
+            await authApi.uploadFavOpps(user!.id, data);
+        },
+        [user]
+    );
 
     return (
         <AuthContext.Provider
@@ -218,6 +243,7 @@ export const AuthProvider: React.FC = ({ children }) => {
                 logged,
                 loading,
                 filter,
+                setFilter,
                 interestsFilled,
                 editUser,
                 login,
