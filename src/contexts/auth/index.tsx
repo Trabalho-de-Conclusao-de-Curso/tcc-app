@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { TypeInterests, TypeUser, TypeLoginData } from '../../models/auth';
 import * as Facebook from 'expo-facebook';
 import * as GoogleSignIn from 'expo-google-sign-in';
-import {} from '../../services';
+import { authApi } from '../../services';
 
 type AuthContextData = {
     user: TypeUser | null;
@@ -11,7 +11,7 @@ type AuthContextData = {
     loading: boolean;
     filter: TypeInterests | null;
     interestsFilled: boolean;
-    uploadInterests: () => void;
+    uploadInterests: (interests: TypeInterests) => void;
     uploadPushToken: () => void;
     cancelRegForOpp: () => void;
     registerForOpp: () => void;
@@ -70,7 +70,6 @@ export const AuthProvider: React.FC = ({ children }) => {
     //TODO: implement editUser
     const editUser = useCallback(async () => {}, []);
 
-    //TODO: implementar login
     const login = useCallback(async (type: string) => {
         switch (type) {
             default: {
@@ -79,6 +78,7 @@ export const AuthProvider: React.FC = ({ children }) => {
             }
             case 'facebook': {
                 try {
+                    setLoading(true);
                     await Facebook.initializeAsync({
                         appId: '107557898058270',
                     });
@@ -112,14 +112,25 @@ export const AuthProvider: React.FC = ({ children }) => {
                         photoUrl: res.picture.data.url,
                         id: res.id,
                     };
+
+                    const { data } = await authApi.login(loginData);
+
+                    setUser(data);
+
+                    await AsyncStorage.setItem(
+                        tokenKey + 'userData',
+                        JSON.stringify(data)
+                    );
                 } catch ({ message }) {
                     console.log(`Facebook Login Error: ${message}`);
                 } finally {
+                    setLoading(false);
                     break;
                 }
             }
             case 'google': {
                 try {
+                    setLoading(true);
                     await GoogleSignIn.initAsync();
 
                     await GoogleSignIn.askForPlayServicesAsync();
@@ -133,20 +144,57 @@ export const AuthProvider: React.FC = ({ children }) => {
                         photoUrl: user!.photoURL!,
                         id: user!.uid,
                     };
+
+                    const { data } = await authApi.login(loginData);
+
+                    setUser(data);
+
+                    await AsyncStorage.setItem(
+                        tokenKey + 'userData',
+                        JSON.stringify(data)
+                    );
                 } catch (err) {
                     console.log(err);
                 } finally {
+                    setLoading(false);
                     break;
                 }
             }
         }
     }, []);
 
-    //TODO: implement logout
-    const logout = useCallback(async () => {}, []);
+    const logout = useCallback(async () => {
+        setLoading(true);
+        setUser(null);
+        await AsyncStorage.setItem(tokenKey + 'userData', 'null');
+        setLoading(false);
+    }, []);
 
-    //TODO: implement editUser
-    const uploadInterests = useCallback(async () => {}, []);
+    const uploadInterests = useCallback(async (interests: TypeInterests) => {
+        try {
+            setLoading(true);
+            console.log(user?.id, interests);
+            await authApi.uploadInterests(user!.id, interests);
+
+            const newUser: TypeUser = { ...user!, interests };
+
+            await AsyncStorage.setItem(
+                tokenKey + 'userData',
+                JSON.stringify(newUser)
+            );
+            setUser(newUser);
+
+            await AsyncStorage.setItem(
+                tokenKey + 'filterData',
+                JSON.stringify(interests)
+            );
+            setFilter(interests);
+        } catch (err) {
+            console.log(err);
+        } finally {
+            setLoading(false);
+        }
+    }, []);
 
     //TODO implement uploadPushToken
     const uploadPushToken = useCallback(async () => {}, []);

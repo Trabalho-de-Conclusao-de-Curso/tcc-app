@@ -1,29 +1,34 @@
-import { TypeInterests, TypeRegOppForm, TypeUser } from '../models/auth';
+import {
+    TypeInterests,
+    TypeLoginData,
+    TypeRegOppForm,
+    TypeUser,
+} from '../models/auth';
 import api from './api';
 
 const urls = {
     registerUser: 'registerUser',
-    getUser: 'getUser/',
     editUser: 'editProfile/',
-    uploadInterests: 'uploadInterests',
+    uploadInterests: 'uploadInterests/',
     uploadPushToken: 'uploadPushToken',
     uploadFavOpps: 'uploadFavOpps/',
     changePhoto: 'changePhoto/',
     registerForOpp: 'registerForOpp',
     cancelRegForOpp: 'cancelRegistration',
+    login: 'login',
 };
 
 const authApi = {
     //TODO: implement registerUser
     registerUser: () => null,
 
-    getUserData: (id: string) => api.get<TypeUser>(urls.getUser + id),
+    login: (data: TypeLoginData) => api.post(urls.login, data),
 
     editUser: (id: string, data: TypeUser) =>
         api.post(urls.editUser + id, data),
 
-    uploadInterests: (interests: TypeInterests) =>
-        api.post(urls.uploadInterests, interests),
+    uploadInterests: (id: string, interests: TypeInterests) =>
+        api.post(urls.uploadInterests + id, { interests }),
 
     uploadPushToken: (token: string) => api.post(urls.uploadPushToken, token),
 

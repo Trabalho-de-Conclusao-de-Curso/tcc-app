@@ -1,10 +1,21 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, ActivityIndicator } from 'react-native';
+
+import useUi from '../contexts/ui/useUi';
 
 const index: React.FC = () => {
+    const { theme } = useUi();
+
     return (
-        <View>
-            <Text>Carregando</Text>
+        <View
+            style={{
+                flex: 1,
+                backgroundColor: theme.colors.background,
+                justifyContent: 'center',
+                alignItems: 'center',
+            }}
+        >
+            <ActivityIndicator color={theme.colors.primary} size="large" />
         </View>
     );
 };

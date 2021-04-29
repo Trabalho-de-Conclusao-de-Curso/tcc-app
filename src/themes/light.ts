@@ -8,6 +8,7 @@ export default {
         section: '#F1F1F1',
         appBar: '#F8F8F8',
         rating: '#F37A10',
+        selected: '#009688',
         font: {
             main: '#707070',
             light: '#727272',

@@ -20,15 +20,17 @@ const RootNav: React.FC = () => {
         <>
             {loading ? (
                 <Loading />
-            ) : logged && !interestsFilled ? (
+            ) : logged && interestsFilled ? (
                 <RootStack.Navigator headerMode="none">
                     <RootStack.Screen name="MainNav" component={MainNav} />
                 </RootStack.Navigator>
             ) : logged && !interestsFilled ? (
-                <RootStack.Screen
-                    name="SelectInterests"
-                    component={SelectInterests}
-                />
+                <RootStack.Navigator headerMode="none">
+                    <RootStack.Screen
+                        name="SelectInterests"
+                        component={SelectInterests}
+                    />
+                </RootStack.Navigator>
             ) : (
                 <RootStack.Navigator headerMode="none">
                     <RootStack.Screen name="SignIn" component={SignIn} />
