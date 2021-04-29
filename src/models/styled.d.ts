@@ -12,6 +12,7 @@ declare module 'styled-components' {
             appBar: string;
             rating: string;
             selected: string;
+            unselected: string;
             font: {
                 main: string;
                 light: string;

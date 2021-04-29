@@ -9,6 +9,7 @@ export default {
         appBar: '#12191D',
         rating: '#F37A10',
         selected: '#009688',
+        unselected: '#B4B4B4',
         font: {
             main: '#F8F8F8',
             light: '#F2F2F2',
