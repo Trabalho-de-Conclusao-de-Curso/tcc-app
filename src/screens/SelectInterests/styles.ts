@@ -55,6 +55,6 @@ export const ConfirmButton = styled.TouchableOpacity`
     background-color: ${props => props.theme.colors.primary};
     border-radius: 6px;
     margin-top: 20px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     align-self: center;
 `;

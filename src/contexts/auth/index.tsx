@@ -170,31 +170,34 @@ export const AuthProvider: React.FC = ({ children }) => {
         setLoading(false);
     }, []);
 
-    const uploadInterests = useCallback(async (interests: TypeInterests) => {
-        try {
-            setLoading(true);
-            console.log(user?.id, interests);
-            await authApi.uploadInterests(user!.id, interests);
+    const uploadInterests = useCallback(
+        async (interests: TypeInterests) => {
+            try {
+                setLoading(true);
+                console.log(user);
+                await authApi.uploadInterests(user!.id, interests);
 
-            const newUser: TypeUser = { ...user!, interests };
+                const newUser: TypeUser = { ...user!, interests };
 
-            await AsyncStorage.setItem(
-                tokenKey + 'userData',
-                JSON.stringify(newUser)
-            );
-            setUser(newUser);
+                await AsyncStorage.setItem(
+                    tokenKey + 'userData',
+                    JSON.stringify(newUser)
+                );
+                setUser(newUser);
 
-            await AsyncStorage.setItem(
-                tokenKey + 'filterData',
-                JSON.stringify(interests)
-            );
-            setFilter(interests);
-        } catch (err) {
-            console.log(err);
-        } finally {
-            setLoading(false);
-        }
-    }, []);
+                await AsyncStorage.setItem(
+                    tokenKey + 'filterData',
+                    JSON.stringify(interests)
+                );
+                setFilter(interests);
+            } catch (err) {
+                console.log(err);
+            } finally {
+                setLoading(false);
+            }
+        },
+        [user]
+    );
 
     //TODO implement uploadPushToken
     const uploadPushToken = useCallback(async () => {}, []);

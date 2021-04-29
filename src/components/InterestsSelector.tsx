@@ -26,6 +26,8 @@ const InterestsSelector: React.FC<TypeProps> = ({ onInterestsChange }) => {
         environment: false,
         health: false,
         education: false,
+        arts: false,
+        others: false,
     });
 
     useEffect(() => {
@@ -88,6 +90,25 @@ const InterestsSelector: React.FC<TypeProps> = ({ onInterestsChange }) => {
                     setInterests({
                         ...interests,
                         education: !interests.education,
+                    })
+                }
+            />
+            <InterestCard
+                icon="masks"
+                selected={interests.arts}
+                label={strings.arts}
+                onPress={() =>
+                    setInterests({ ...interests, arts: !interests.arts })
+                }
+            />
+            <InterestCard
+                icon="others"
+                selected={interests.others}
+                label={strings.others}
+                onPress={() =>
+                    setInterests({
+                        ...interests,
+                        others: !interests.others,
                     })
                 }
             />

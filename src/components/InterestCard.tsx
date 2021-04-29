@@ -10,6 +10,8 @@ const unselectedIcons: { [key: string]: any } = {
     leaf: require('../assets/interests/unselected/Leaf.png'),
     paw: require('../assets/interests/unselected/Paw.png'),
     pills: require('../assets/interests/unselected/Pills.png'),
+    masks: require('../assets/interests/unselected/Masks.png'),
+    others: require('../assets/interests/unselected/Others.png'),
 };
 
 const selectedIcons: { [key: string]: any } = {
@@ -19,6 +21,8 @@ const selectedIcons: { [key: string]: any } = {
     leaf: require('../assets/interests/selected/Leaf.png'),
     paw: require('../assets/interests/selected/Paw.png'),
     pills: require('../assets/interests/selected/Pills.png'),
+    masks: require('../assets/interests/selected/Masks.png'),
+    others: require('../assets/interests/selected/Others.png'),
 };
 
 const Container = styled.TouchableOpacity`

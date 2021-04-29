@@ -12,6 +12,8 @@ import { TypeOpp } from '../../models/opp';
 import { TypeOrg } from '../../models/org';
 import { TypePost } from '../../models/post';
 
+import { oppApi } from '../../services';
+
 type TypeDataContext = {
     opps: TypeOpp[];
     favOpps: TypeOpp[];
@@ -37,7 +39,19 @@ export const DataProvider: React.FC = ({ children }) => {
     const [loading, setLoading] = useState<boolean>(false);
 
     //TODO: implement loadOpps
-    const loadOpps = useCallback(async (interests: TypeInterests) => {}, []);
+    const loadOpps = useCallback(async (interests: TypeInterests) => {
+        try {
+            setLoading(true);
+
+            const { data } = await oppApi.getOpps(interests);
+
+            setOpps(data);
+        } catch (err) {
+            console.log(err);
+        } finally {
+            setLoading(false);
+        }
+    }, []);
 
     //TODO: implement loadFavOpps
     const loadFavOpps = useCallback(async (favOpps: string[]) => {}, []);

@@ -9,7 +9,7 @@ const urls = {
 
 const oppApi = {
     getOpps: (interests: TypeInterests) =>
-        api.post<TypeOpp[]>(urls.getOpps, interests),
+        api.post<TypeOpp[]>(urls.getOpps, { interests }),
 
     getFavOpps: (favOpps: string[]) =>
         api.post<TypeOpp[]>(urls.getFavOpps, favOpps),

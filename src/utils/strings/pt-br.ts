@@ -14,6 +14,8 @@ export default {
     environment: 'Meio Ambiente',
     health: 'Saúde',
     education: 'Educação',
+    arts: 'Artes',
+    others: 'Outros',
 
     confirm: 'Confirmar',
     error: 'Erro',
