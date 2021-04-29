@@ -38,7 +38,6 @@ export const DataProvider: React.FC = ({ children }) => {
     const [posts, setPosts] = useState<TypePost[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
 
-    //TODO: implement loadOpps
     const loadOpps = useCallback(async (interests: TypeInterests) => {
         try {
             setLoading(true);
@@ -53,8 +52,17 @@ export const DataProvider: React.FC = ({ children }) => {
         }
     }, []);
 
-    //TODO: implement loadFavOpps
-    const loadFavOpps = useCallback(async (favOpps: string[]) => {}, []);
+    const loadFavOpps = useCallback(async (favOpps: string[]) => {
+        try {
+            const { data } = await oppApi.getFavOpps(favOpps);
+
+            setFavOpps(data);
+        } catch (err) {
+            console.log(err);
+        } finally {
+            setLoading(false);
+        }
+    }, []);
 
     //TODO: implement loadOrg
     const loadOrg = useCallback(async (orgId: string) => {}, []);

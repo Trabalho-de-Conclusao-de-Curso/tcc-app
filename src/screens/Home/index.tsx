@@ -5,7 +5,7 @@ import useData from '../../contexts/data/useData';
 import useAuth from '../../contexts/auth/useAuth';
 
 import { Container } from './styles';
-import { ScrollView, Text } from 'react-native';
+import { ScrollView } from 'react-native';
 
 //Components
 import AppBar from '../../components/AppBar';

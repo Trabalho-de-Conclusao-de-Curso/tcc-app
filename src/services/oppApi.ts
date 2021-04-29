@@ -11,8 +11,8 @@ const oppApi = {
     getOpps: (interests: TypeInterests) =>
         api.post<TypeOpp[]>(urls.getOpps, { interests }),
 
-    getFavOpps: (favOpps: string[]) =>
-        api.post<TypeOpp[]>(urls.getFavOpps, favOpps),
+    getFavOpps: (favoritesOpportunities: string[]) =>
+        api.post<TypeOpp[]>(urls.getFavOpps, { favoritesOpportunities }),
 };
 
 export default oppApi;
