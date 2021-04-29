@@ -1,6 +1,8 @@
 import React, { createContext, useState, useEffect, useCallback } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { TypeInterests, TypeUser } from '../../models/auth';
+import { TypeInterests, TypeUser, TypeLoginData } from '../../models/auth';
+import * as Facebook from 'expo-facebook';
+import * as GoogleSignIn from 'expo-google-sign-in';
 import {} from '../../services';
 
 type AuthContextData = {
@@ -16,7 +18,7 @@ type AuthContextData = {
     uploadFavOpps: () => void;
     editUser: () => void;
     logout: () => void;
-    login: () => void;
+    login: (type: string) => void;
 };
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
@@ -69,7 +71,76 @@ export const AuthProvider: React.FC = ({ children }) => {
     const editUser = useCallback(async () => {}, []);
 
     //TODO: implementar login
-    const login = useCallback(async () => {}, []);
+    const login = useCallback(async (type: string) => {
+        switch (type) {
+            default: {
+                console.log('not implemented');
+                break;
+            }
+            case 'facebook': {
+                try {
+                    await Facebook.initializeAsync({
+                        appId: '107557898058270',
+                    });
+
+                    const loginResult: any = await Facebook.logInWithReadPermissionsAsync(
+                        {
+                            permissions: ['public_profile'],
+                        }
+                    );
+
+                    const {
+                        type,
+                        token,
+                        expirationDate,
+                        permissions,
+                        declinedPermissions,
+                        userId,
+                    } = loginResult;
+
+                    if (type !== 'success') break;
+
+                    let res: any = await fetch(
+                        `https://graph.facebook.com/v10.0/${userId}/?fields=name,email,picture&access_token=${token}`
+                    );
+
+                    res = await res.json();
+
+                    const loginData: TypeLoginData = {
+                        name: res.name,
+                        email: res.email,
+                        photoUrl: res.picture.data.url,
+                        id: res.id,
+                    };
+                } catch ({ message }) {
+                    console.log(`Facebook Login Error: ${message}`);
+                } finally {
+                    break;
+                }
+            }
+            case 'google': {
+                try {
+                    await GoogleSignIn.initAsync();
+
+                    await GoogleSignIn.askForPlayServicesAsync();
+                    const { type, user } = await GoogleSignIn.signInAsync();
+
+                    if (type !== 'success') break;
+
+                    const loginData: TypeLoginData = {
+                        name: user!.displayName!,
+                        email: user!.email,
+                        photoUrl: user!.photoURL!,
+                        id: user!.uid,
+                    };
+                } catch (err) {
+                    console.log(err);
+                } finally {
+                    break;
+                }
+            }
+        }
+    }, []);
 
     //TODO: implement logout
     const logout = useCallback(async () => {}, []);

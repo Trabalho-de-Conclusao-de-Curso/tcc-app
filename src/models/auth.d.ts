@@ -29,3 +29,10 @@ export type TypeRegOppForm = {
     userPhoto: string;
     userUid: string;
 };
+
+export type TypeLoginData = {
+    name: string;
+    email: string;
+    id: string;
+    photoUrl: string;
+};

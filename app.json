@@ -17,13 +17,22 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.marcos1503.tccapp",
+      "config": {
+        "googleSignIn": {
+          "reservedClientId": "com.googleusercontent.apps.885607646977-f9eeb5juj6fsv559e6d8rql03agig2oo"
+        }
+      },
+      "googleServicesFile": "./GoogleService-Info.plist"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.marcos1503.tccapp",
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
       "favicon": "./src/assets/favicon.png"

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "885607646977",
+    "project_id": "tccapp-1872d",
+    "storage_bucket": "tccapp-1872d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:885607646977:android:4b485ee57a9f0fb6347d00",
+        "android_client_info": {
+          "package_name": "com.marcos1503.tccapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "885607646977-03mo56d17sh3eesok6a5v9hemp5bfujo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.marcos1503.tccapp",
+            "certificate_hash": "ff0c4a55fcbbdb30014f8c3e685b0ba2938d1519"
+          }
+        },
+        {
+          "client_id": "885607646977-3eo8ehl8frv3ir2u0d7frr3dt04aors2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxtzvcX1guTZe2wil_YW7-loXRLj9sm1M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "885607646977-3eo8ehl8frv3ir2u0d7frr3dt04aors2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
