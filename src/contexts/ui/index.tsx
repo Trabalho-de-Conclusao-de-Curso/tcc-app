@@ -15,6 +15,7 @@ type TypeUiContext = {
     theme: DefaultTheme;
     language: string;
     loading: boolean;
+    toggleTheme(): void;
 };
 
 const UiContext = createContext<TypeUiContext>({} as TypeUiContext);
@@ -49,11 +50,20 @@ export const UiProvider: React.FC = ({ children }) => {
         setStrings(getStrings(language));
     }, [language]);
 
+    useEffect(() => {
+        AsyncStorage.setItem(tokenKey + 'theme', theme.title);
+    }, [theme]);
+
+    const toggleTheme = useCallback(() => {
+        setTheme(theme.title === 'light' ? themeDark : themeLight);
+    }, [theme]);
+
     return (
         <UiContext.Provider
             value={{
                 strings,
                 theme,
+                toggleTheme,
                 language,
                 loading,
             }}
