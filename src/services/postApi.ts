@@ -9,7 +9,7 @@ const urls = {
 const postApi = {
     getPosts: () => api.get<TypePost[]>(urls.getPosts),
     likePost: (userId: string, postId: string) =>
-        api.post<TypePost[]>(urls.likePost + userId + '/' + postId),
+        api.post<string[]>(urls.likePost + userId + '/' + postId),
 };
 
 export default postApi;

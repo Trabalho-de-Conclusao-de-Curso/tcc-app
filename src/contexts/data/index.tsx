@@ -12,7 +12,7 @@ import { TypeOpp } from '../../models/opp';
 import { TypeOrg } from '../../models/org';
 import { TypePost } from '../../models/post';
 
-import { oppApi } from '../../services';
+import { oppApi, postApi } from '../../services';
 
 type TypeDataContext = {
     opps: TypeOpp[];
@@ -26,6 +26,7 @@ type TypeDataContext = {
     loadFavOpps: (favOpps: string[]) => void;
     loadOrg: (orgId: string) => void;
     loadPosts: () => void;
+    likePosts: (postId: string, userId: string) => void;
 };
 
 const DataContext = createContext<TypeDataContext>({} as TypeDataContext);
@@ -67,8 +68,39 @@ export const DataProvider: React.FC = ({ children }) => {
     //TODO: implement loadOrg
     const loadOrg = useCallback(async (orgId: string) => {}, []);
 
-    //TODO: implement loadPosts
-    const loadPosts = useCallback(async () => {}, []);
+    const loadPosts = useCallback(async () => {
+        try {
+            setLoading(true);
+
+            const { data } = await postApi.getPosts();
+            setPosts(data);
+        } catch (err) {
+            console.log(err);
+        } finally {
+            setLoading(false);
+        }
+    }, []);
+
+    const likePosts = useCallback(
+        async (postId: string, userId: string) => {
+            try {
+                const { data } = await postApi.likePost(userId, postId);
+
+                const newPosts: TypePost[] = [];
+
+                posts.forEach(item => {
+                    if (item.id === postId) {
+                        newPosts.push({ ...item, likes: data });
+                    } else newPosts.push(item);
+                });
+
+                setPosts(newPosts);
+            } catch (err) {
+                console.log(err);
+            }
+        },
+        [posts]
+    );
 
     return (
         <DataContext.Provider
@@ -84,6 +116,7 @@ export const DataProvider: React.FC = ({ children }) => {
                 loadFavOpps,
                 loadOrg,
                 loadPosts,
+                likePosts,
             }}
         >
             {children}

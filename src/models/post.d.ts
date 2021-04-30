@@ -1,4 +1,5 @@
 export type TypePost = {
+    body: string;
     createdAt: string;
     id: string;
     image: string;
