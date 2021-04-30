@@ -14,15 +14,6 @@ type TypeProps = {
     onClose(): void;
 };
 
-const Header = styled.View`
-    width: 100%;
-    padding: 5px;
-    padding-left: 10px;
-    padding-right: 10px;
-    flex-direction: row;
-    justify-content: space-between;
-`;
-
 const Button = styled.TouchableOpacity``;
 
 const Filter: React.FC<TypeProps> = ({ open, onClose }) => {
@@ -41,26 +32,29 @@ const Filter: React.FC<TypeProps> = ({ open, onClose }) => {
 
     return (
         <BottomSheet modalProps={{}} isVisible={open}>
-            <ListItem>
-                <Header>
-                    <Button onPress={onClose}>
-                        <Icon
-                            name="close"
-                            color={theme.colors.secondary}
-                            size={24}
-                        />
-                    </Button>
-                    <Button onPress={handleConfirm}>
-                        <Icon
-                            name="check"
-                            color={theme.colors.primary}
-                            size={24}
-                        />
-                    </Button>
-                </Header>
+            <ListItem
+                containerStyle={{
+                    backgroundColor: theme.colors.background,
+                    justifyContent: 'space-between',
+                }}
+                bottomDivider
+            >
+                <Button onPress={onClose}>
+                    <Icon
+                        name="close"
+                        color={theme.colors.secondary}
+                        size={24}
+                    />
+                </Button>
+                <Button onPress={handleConfirm}>
+                    <Icon name="check" color={theme.colors.primary} size={24} />
+                </Button>
             </ListItem>
             {keys.map((item, index) => (
                 <ListItem
+                    containerStyle={{
+                        backgroundColor: theme.colors.background,
+                    }}
                     key={index}
                     onPress={() =>
                         setValues({ ...values, [item]: !values[item] })
@@ -80,7 +74,11 @@ const Filter: React.FC<TypeProps> = ({ open, onClose }) => {
                         size={24}
                     />
                     <ListItem.Content>
-                        <ListItem.Title>{strings[item]}</ListItem.Title>
+                        <ListItem.Title
+                            style={{ color: theme.colors.font.main }}
+                        >
+                            {strings[item]}
+                        </ListItem.Title>
                     </ListItem.Content>
                 </ListItem>
             ))}
