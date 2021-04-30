@@ -8,6 +8,7 @@ export default {
     hello: 'Olá, ',
     howDoYouWannaHelp: 'Quais causas você quer ajudar?',
 
+    interests: 'Interesses',
     animals: 'Animais',
     humanRights: 'Direitos Humanos',
     sports: 'Esportes',
@@ -24,4 +25,10 @@ export default {
     somethinWentWrong: 'Algo deu errado, tente novamente mais tarde.',
 
     seeDetails: 'Ver Detalhes',
+
+    languages: 'Idiomas',
+    formation: 'Formação',
+
+    editProfile: 'Editar Perfil',
+    disconnect: 'Desconectar',
 };
