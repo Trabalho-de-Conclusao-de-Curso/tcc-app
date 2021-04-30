@@ -42,7 +42,6 @@ const TabNav: React.FC = () => {
             else if (props.route.name === 'Favorites') iconName = 'favorite';
             else if (props.route.name === 'Profile') iconName = 'person';
 
-            // You can return any component that you like here!
             return <Icon name={iconName} size={size} color={color} />;
         },
     });

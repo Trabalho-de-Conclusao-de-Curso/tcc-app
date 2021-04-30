@@ -212,7 +212,6 @@ export const AuthProvider: React.FC = ({ children }) => {
     //TODO implement registerForOpp
     const registerForOpp = useCallback(async () => {}, []);
 
-    //TODO implement uploadFavOpps
     const uploadFavOpps = useCallback(
         async (oppId: string) => {
             let data: string[] = [];
