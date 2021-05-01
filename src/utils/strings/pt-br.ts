@@ -31,4 +31,14 @@ export default {
 
     editProfile: 'Editar Perfil',
     disconnect: 'Desconectar',
+
+    register: 'Me inscrever',
+    unRegister: 'Cancelar Cadastro',
+    requirements: 'Requisitos',
+    address: 'Endereço',
+    periodAndDuration: 'Período e Duração',
+    socialProject: 'Projeto Social',
+    socialProjInfo:
+        'Informações sobre a ONG, instituição ou projeto social que disponibilizou a vaga.',
+    knowMore: 'Saiba Mais',
 };

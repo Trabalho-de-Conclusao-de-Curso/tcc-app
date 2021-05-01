@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { TypeOpp } from '../../models/opp';
+import { StackActions } from '@react-navigation/native';
 
 import useUi from '../../contexts/ui/useUi';
 import useData from '../../contexts/data/useData';
 import useAuth from '../../contexts/auth/useAuth';
+import { useNavigation } from '@react-navigation/core';
 
 import { Container } from './styles';
 import { ScrollView } from 'react-native';
@@ -15,14 +18,20 @@ import Filter from '../../components/Filter';
 
 const index: React.FC = () => {
     const { strings } = useUi();
-    const { opps, loadOpps, loading } = useData();
+    const { opps, loadOpps, loading, setOpp } = useData();
     const { filter, uploadFavOpps } = useAuth();
+    const navigation = useNavigation();
 
     const [filterOpen, setFilterOpen] = useState<boolean>(false);
 
     useEffect(() => {
         if (filter) loadOpps(filter);
     }, [filter]);
+
+    const handleSelectOpp = (opp: TypeOpp) => {
+        setOpp(opp);
+        navigation.dispatch(StackActions.push('Opportunity'));
+    };
 
     return (
         <Container>
@@ -40,7 +49,7 @@ const index: React.FC = () => {
                             key={index}
                             opp={item}
                             onFavorite={() => uploadFavOpps(item.id)}
-                            onPress={() => console.log('pressed')}
+                            onPress={() => handleSelectOpp(item)}
                         />
                     ))}
                 </ScrollView>

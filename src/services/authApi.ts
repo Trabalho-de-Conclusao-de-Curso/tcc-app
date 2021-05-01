@@ -1,9 +1,4 @@
-import {
-    TypeInterests,
-    TypeLoginData,
-    TypeRegOppForm,
-    TypeUser,
-} from '../models/auth';
+import { TypeInterests, TypeLoginData, TypeUser } from '../models/auth';
 import api from './api';
 
 const urls = {
@@ -13,8 +8,6 @@ const urls = {
     uploadPushToken: 'uploadPushToken',
     uploadFavOpps: 'uploadFavList/',
     changePhoto: 'changePhoto/',
-    registerForOpp: 'registerForOpp',
-    cancelRegForOpp: 'cancelRegistration',
     login: 'login',
 };
 
@@ -37,12 +30,6 @@ const authApi = {
 
     changePhoto: (id: string, data: FormData) =>
         api.post(urls.changePhoto + id, data),
-
-    registerForOpp: (oppId: string, data: TypeRegOppForm) =>
-        api.post(urls.registerForOpp + oppId, data),
-
-    cancelRegForOpp: (oppId: string, userId: string) =>
-        api.post(urls.cancelRegForOpp + oppId + '/' + userId),
 };
 
 export default authApi;

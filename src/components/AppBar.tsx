@@ -12,12 +12,12 @@ const Container = styled.View`
     align-items: center;
 `;
 
-const LeftContainer = styled.TouchableOpacity`
+const PrimaryButton = styled.TouchableOpacity`
     position: absolute;
     left: 16px;
 `;
 
-const RightContainer = styled.TouchableOpacity`
+const SecondaryButton = styled.TouchableOpacity`
     position: absolute;
     right: 16px;
 `;
@@ -54,26 +54,26 @@ const AppBar: React.FC<TypeProps> = props => {
 
     return (
         <Container>
+            {title && <LblTitle>{title}</LblTitle>}
+
             {primaryIcon && (
-                <LeftContainer onPress={onPrimaryAction}>
+                <PrimaryButton onPress={onPrimaryAction}>
                     <Icon
                         name={primaryIcon}
                         size={24}
                         color={theme.colors.font.main}
                     />
-                </LeftContainer>
+                </PrimaryButton>
             )}
 
-            {title && <LblTitle>{title}</LblTitle>}
-
             {secondaryIcon && (
-                <RightContainer onPress={onSecondaryAction}>
+                <SecondaryButton onPress={onSecondaryAction}>
                     <Icon
                         name={secondaryIcon}
                         size={24}
                         color={theme.colors.font.main}
                     />
-                </RightContainer>
+                </SecondaryButton>
             )}
         </Container>
     );

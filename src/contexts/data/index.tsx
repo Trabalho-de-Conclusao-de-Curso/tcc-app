@@ -27,6 +27,8 @@ type TypeDataContext = {
     loadOrg: (orgId: string) => void;
     loadPosts: () => void;
     likePosts: (postId: string, userId: string) => void;
+    cancelRegForOpp: (userId: string) => void;
+    registerForOpp: () => void;
 };
 
 const DataContext = createContext<TypeDataContext>({} as TypeDataContext);
@@ -102,6 +104,22 @@ export const DataProvider: React.FC = ({ children }) => {
         [posts]
     );
 
+    const cancelRegForOpp = useCallback(
+        async (userId: string) => {
+            const usersRegisterds = opp!.usersRegistered.filter(value => {
+                return value !== userId;
+            });
+
+            await oppApi.cancelRegForOpp(opp!.id, userId);
+
+            setOpp({ ...opp!, usersRegistered: usersRegisterds });
+        },
+        [opp]
+    );
+
+    //TODO implement registerForOpp
+    const registerForOpp = useCallback(async () => {}, []);
+
     return (
         <DataContext.Provider
             value={{
@@ -117,6 +135,8 @@ export const DataProvider: React.FC = ({ children }) => {
                 loadOrg,
                 loadPosts,
                 likePosts,
+                cancelRegForOpp,
+                registerForOpp,
             }}
         >
             {children}

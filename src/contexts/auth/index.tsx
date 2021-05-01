@@ -23,8 +23,6 @@ type AuthContextData = {
     interestsFilled: boolean;
     uploadInterests: (interests: TypeInterests) => void;
     uploadPushToken: () => void;
-    cancelRegForOpp: () => void;
-    registerForOpp: () => void;
     uploadFavOpps: (oppId: string) => void;
     editUser: () => void;
     logout: () => void;
@@ -206,12 +204,6 @@ export const AuthProvider: React.FC = ({ children }) => {
     //TODO implement uploadPushToken
     const uploadPushToken = useCallback(async () => {}, []);
 
-    //TODO implement cancelRegForOpp
-    const cancelRegForOpp = useCallback(async () => {}, []);
-
-    //TODO implement registerForOpp
-    const registerForOpp = useCallback(async () => {}, []);
-
     const uploadFavOpps = useCallback(
         async (oppId: string) => {
             let data: string[] = [];
@@ -248,8 +240,6 @@ export const AuthProvider: React.FC = ({ children }) => {
                 login,
                 logout,
                 uploadInterests,
-                cancelRegForOpp,
-                registerForOpp,
                 uploadPushToken,
                 uploadFavOpps,
             }}
