@@ -7,7 +7,7 @@ import React, {
     SetStateAction,
 } from 'react';
 
-import { TypeInterests } from '../../models/auth';
+import { TypeInterests, TypeRegOppForm } from '../../models/auth';
 import { TypeOpp } from '../../models/opp';
 import { TypeOrg } from '../../models/org';
 import { TypePost } from '../../models/post';
@@ -28,7 +28,7 @@ type TypeDataContext = {
     loadPosts: () => void;
     likePosts: (postId: string, userId: string) => void;
     cancelRegForOpp: (userId: string) => void;
-    registerForOpp: () => void;
+    registerForOpp: (data: TypeRegOppForm) => Promise<boolean>;
 };
 
 const DataContext = createContext<TypeDataContext>({} as TypeDataContext);
@@ -117,8 +117,28 @@ export const DataProvider: React.FC = ({ children }) => {
         [opp]
     );
 
-    //TODO implement registerForOpp
-    const registerForOpp = useCallback(async () => {}, []);
+    const registerForOpp = useCallback(
+        async (data: TypeRegOppForm): Promise<boolean> => {
+            try {
+                setLoading(true);
+
+                await oppApi.registerForOpp(opp!.id, data);
+
+                setOpp({
+                    ...opp!,
+                    usersRegistered: [...opp!.usersRegistered, data.userUid],
+                });
+
+                return Promise.resolve(true);
+            } catch (err) {
+                console.log(err);
+                return Promise.resolve(false);
+            } finally {
+                setLoading(false);
+            }
+        },
+        [opp]
+    );
 
     return (
         <DataContext.Provider

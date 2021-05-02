@@ -41,4 +41,11 @@ export default {
     socialProjInfo:
         'Informações sobre a ONG, instituição ou projeto social que disponibilizou a vaga.',
     knowMore: 'Saiba Mais',
+
+    presentationLetter: 'Carta de Apresentação',
+    typeSomething: 'Digite algo...',
+    cancel: 'Cancelar',
+    congratulations: 'Parabéns',
+    registered: 'Você acaba de se registrar para essa vaga.',
+    ok: 'Ok',
 };

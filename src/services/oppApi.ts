@@ -16,8 +16,8 @@ const oppApi = {
     getFavOpps: (favoritesOpportunities: string[]) =>
         api.post<TypeOpp[]>(urls.getFavOpps, { favoritesOpportunities }),
 
-    registerForOpp: (oppId: string, data: TypeRegOppForm) =>
-        api.post(urls.registerForOpp + oppId, data),
+    registerForOpp: (oppId: string, registrationData: TypeRegOppForm) =>
+        api.post(urls.registerForOpp + oppId, { registrationData }),
 
     cancelRegForOpp: (oppId: string, userId: string) =>
         api.post(urls.cancelRegForOpp + userId + '/' + oppId),

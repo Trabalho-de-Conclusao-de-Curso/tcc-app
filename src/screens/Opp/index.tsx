@@ -77,7 +77,7 @@ const index: React.FC = () => {
                     <RegisterButton
                         onPress={() =>
                             navigation.dispatch(
-                                StackActions.push('Organization')
+                                StackActions.push('Register')
                             )
                         }
                     >
