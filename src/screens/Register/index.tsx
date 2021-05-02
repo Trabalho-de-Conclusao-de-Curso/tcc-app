@@ -24,7 +24,7 @@ import AppBar from '../../components/AppBar';
 import Loading from '../../components/Loading';
 
 const index: React.FC = () => {
-    const { strings } = useUi();
+    const { strings, theme } = useUi();
     const { user } = useAuth();
     const { registerForOpp, loading } = useData();
     const navigation = useNavigation();
@@ -66,6 +66,7 @@ const index: React.FC = () => {
                         value={presentation}
                         onChangeText={setPresentation}
                         multiline
+                        placeholderTextColor={theme.colors.font.main}
                     />
                     <ButtonsView>
                         <CancelButton
