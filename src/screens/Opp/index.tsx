@@ -32,7 +32,7 @@ import { BottomView } from '../Profile/styles';
 
 const index: React.FC = () => {
     const { strings, theme } = useUi();
-    const { opp, cancelRegForOpp } = useData();
+    const { opp, cancelRegForOpp, loadOrg } = useData();
     const { user, uploadFavOpps } = useAuth();
     const navigation = useNavigation();
 
@@ -41,6 +41,11 @@ const index: React.FC = () => {
     useEffect(() => {
         setFavorited(user!.favoritesOpportunities.includes(opp!.id));
     }, [user]);
+
+    const handleOrg = () => {
+        loadOrg(opp!.organization);
+        navigation.dispatch(StackActions.push('Organization'));
+    };
 
     return (
         <Container>
@@ -76,9 +81,7 @@ const index: React.FC = () => {
                 ) : (
                     <RegisterButton
                         onPress={() =>
-                            navigation.dispatch(
-                                StackActions.push('Register')
-                            )
+                            navigation.dispatch(StackActions.push('Register'))
                         }
                     >
                         <ButtonLabel>{strings.register}</ButtonLabel>
@@ -105,11 +108,7 @@ const index: React.FC = () => {
                 </SectionView>
                 <LblName>{strings.socialProject}</LblName>
                 <LblDescription>{strings.socialProjInfo}</LblDescription>
-                <UnRegisterButton
-                    onPress={() =>
-                        navigation.dispatch(StackActions.push('Organization'))
-                    }
-                >
+                <UnRegisterButton onPress={handleOrg}>
                     <ButtonLabel>{strings.knowMore}</ButtonLabel>
                 </UnRegisterButton>
                 <BottomView />

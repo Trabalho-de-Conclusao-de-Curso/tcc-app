@@ -12,7 +12,7 @@ import { TypeOpp } from '../../models/opp';
 import { TypeOrg } from '../../models/org';
 import { TypePost } from '../../models/post';
 
-import { oppApi, postApi } from '../../services';
+import { oppApi, orgApi, postApi } from '../../services';
 
 type TypeDataContext = {
     opps: TypeOpp[];
@@ -67,8 +67,19 @@ export const DataProvider: React.FC = ({ children }) => {
         }
     }, []);
 
-    //TODO: implement loadOrg
-    const loadOrg = useCallback(async (orgId: string) => {}, []);
+    const loadOrg = useCallback(async (orgId: string) => {
+        try {
+            setLoading(true);
+
+            const { data } = await orgApi.getOrgData(orgId);
+
+            setOrg(data);
+        } catch (err) {
+            console.log(err);
+        } finally {
+            setLoading(false);
+        }
+    }, []);
 
     const loadPosts = useCallback(async () => {
         try {

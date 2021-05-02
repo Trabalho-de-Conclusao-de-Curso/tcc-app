@@ -48,4 +48,6 @@ export default {
     congratulations: 'Parabéns',
     registered: 'Você acaba de se registrar para essa vaga.',
     ok: 'Ok',
+
+    contact: 'Contato',
 };
