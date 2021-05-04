@@ -29,7 +29,7 @@ const authApi = {
         api.post(urls.uploadFavOpps + userId, { favoritesOpportunities }),
 
     changePhoto: (id: string, data: FormData) =>
-        api.post(urls.changePhoto + id, data),
+        api.post<string>(urls.changePhoto + id, data),
 };
 
 export default authApi;

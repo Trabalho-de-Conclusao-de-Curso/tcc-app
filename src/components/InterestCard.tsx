@@ -28,7 +28,7 @@ const selectedIcons: { [key: string]: any } = {
 const Container = styled.TouchableOpacity`
     width: 138px;
     height: 138px;
-    background: ${props => props.theme.colors.background};
+    background: ${props => props.theme.colors.section};
     box-shadow: 0px 3px 6px #cfcccc;
     border-radius: 10px;
     align-items: center;

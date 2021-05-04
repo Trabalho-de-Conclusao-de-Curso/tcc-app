@@ -15,20 +15,28 @@ const Container = styled.View`
 
 type TypeProps = {
     onInterestsChange(interests: TypeInterests): void;
+    initialValue?: TypeInterests;
 };
 
-const InterestsSelector: React.FC<TypeProps> = ({ onInterestsChange }) => {
+const InterestsSelector: React.FC<TypeProps> = ({
+    onInterestsChange,
+    initialValue,
+}) => {
     const { strings } = useUi();
-    const [interests, setInterests] = useState<TypeInterests>({
-        animals: false,
-        humanRights: false,
-        sports: false,
-        environment: false,
-        health: false,
-        education: false,
-        arts: false,
-        others: false,
-    });
+    const [interests, setInterests] = useState<TypeInterests>(
+        initialValue
+            ? initialValue
+            : {
+                  animals: false,
+                  humanRights: false,
+                  sports: false,
+                  environment: false,
+                  health: false,
+                  education: false,
+                  arts: false,
+                  others: false,
+              }
+    );
 
     useEffect(() => {
         onInterestsChange(interests);

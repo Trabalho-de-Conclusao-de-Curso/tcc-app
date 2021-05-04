@@ -50,4 +50,21 @@ export default {
     ok: 'Ok',
 
     contact: 'Contato',
+
+    personalData: 'Dados Pessoais',
+    editPhoto: 'Editar Foto',
+    nameHint: 'Nome social ou de registro',
+    gender: 'Gênero',
+    genderHint: 'Gênero com qual se identifica',
+    nationality: 'Nacionalidade',
+    bornDay: 'Data de nascimento',
+    presentation: 'Breve Apresentação',
+    institution: 'Universidade',
+    course: 'Curso',
+    name: 'Nome',
+    email: 'Email',
+    save: 'Salvar',
+    back: 'Voltar',
+
+    mustNotBeEmpty: 'O campo precisa ser preenchido',
 };

@@ -76,12 +76,18 @@ const InterestSection: React.FC<TypeProps> = ({ interests }) => {
         <Container>
             <LblHeader>{strings.interests}</LblHeader>
             <RowView>
-                {keys.map((key, index) => (
-                    <ItemView key={index}>
-                        <IconImg source={icons[key]} resizeMode="contain" />
-                        <LblInterest>{strings[key]}</LblInterest>
-                    </ItemView>
-                ))}
+                {keys.map(
+                    (key, index) =>
+                        interests[key] && (
+                            <ItemView key={index}>
+                                <IconImg
+                                    source={icons[key]}
+                                    resizeMode="contain"
+                                />
+                                <LblInterest>{strings[key]}</LblInterest>
+                            </ItemView>
+                        )
+                )}
             </RowView>
         </Container>
     );

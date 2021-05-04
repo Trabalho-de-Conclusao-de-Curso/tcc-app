@@ -26,13 +26,9 @@ import useAuth from '../../contexts/auth/useAuth';
 
 const index: React.FC = () => {
     const { strings } = useUi();
-    const { user, logout } = useAuth();
+    const { user } = useAuth();
 
     const [menu, setMenu] = useState<boolean>(false);
-
-    useEffect(() => {
-        // logout();
-    }, []);
 
     return (
         <Container>

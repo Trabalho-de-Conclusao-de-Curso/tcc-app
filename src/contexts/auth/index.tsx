@@ -7,6 +7,8 @@ import React, {
     SetStateAction,
 } from 'react';
 
+import { Platform } from 'react-native';
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Facebook from 'expo-facebook';
 import * as GoogleSignIn from 'expo-google-sign-in';
@@ -24,7 +26,7 @@ type AuthContextData = {
     uploadInterests: (interests: TypeInterests) => void;
     uploadPushToken: () => void;
     uploadFavOpps: (oppId: string) => void;
-    editUser: () => void;
+    editUser: (data: TypeUser, photo?: any) => Promise<boolean>;
     logout: () => void;
     login: (type: string) => void;
 };
@@ -83,8 +85,40 @@ export const AuthProvider: React.FC = ({ children }) => {
         setUser(newUser);
     };
 
-    //TODO: implement editUser
-    const editUser = useCallback(async () => {}, []);
+    const editUser = useCallback(
+        async (newUser: TypeUser, photo): Promise<boolean> => {
+            let auxData = newUser;
+            try {
+                if (photo) {
+                    const photoForm = new FormData();
+                    photoForm.append('image', {
+                        //@ts-ignore
+                        name: 'profile.jpg',
+                        type: 'image/jpg',
+                        uri:
+                            Platform.OS === 'android'
+                                ? photo.uri
+                                : photo.uri.replace('file:/', ''),
+                    });
+
+                    const { data } = await authApi.changePhoto(
+                        newUser.id,
+                        photoForm
+                    );
+
+                    auxData = { ...auxData, photo: data };
+                }
+
+                await authApi.editUser(newUser.id, auxData);
+                updateUser(auxData);
+
+                return Promise.resolve(true);
+            } catch (err) {
+                return Promise.resolve(false);
+            }
+        },
+        []
+    );
 
     const login = useCallback(async (type: string) => {
         switch (type) {
