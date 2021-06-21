@@ -45,7 +45,7 @@ const index: React.FC<TypeProps> = ({ post, onOrgPress, onLike }) => {
                     <LblOrg>{post.orgName}</LblOrg>
                 </Button>
             </RowView>
-            <PostImg source={{ uri: post.image }} />
+            {post.image && <PostImg source={{ uri: post.image }} />}
             <LblBody>{post.body}</LblBody>
             <RowView>
                 <Button onPress={onLike}>

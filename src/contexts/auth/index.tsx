@@ -54,7 +54,10 @@ export const AuthProvider: React.FC = ({ children }) => {
             const filterData = await AsyncStorage.getItem(
                 tokenKey + 'filterData'
             );
-            setFilter(filterData ? JSON.parse(filterData) : null);
+
+            if (!filterData && userData)
+                setFilter(JSON.parse(userData).interests);
+            if (filterData) setFilter(JSON.parse(filterData));
 
             setLoading(false);
         };
@@ -83,6 +86,10 @@ export const AuthProvider: React.FC = ({ children }) => {
             JSON.stringify(newUser)
         );
         setUser(newUser);
+        await AsyncStorage.setItem(
+            tokenKey + 'filterData',
+            JSON.stringify(newUser.interests)
+        );
     };
 
     const editUser = useCallback(
@@ -133,20 +140,12 @@ export const AuthProvider: React.FC = ({ children }) => {
                         appId: '107557898058270',
                     });
 
-                    const loginResult: any = await Facebook.logInWithReadPermissionsAsync(
-                        {
+                    const loginResult: any =
+                        await Facebook.logInWithReadPermissionsAsync({
                             permissions: ['public_profile'],
-                        }
-                    );
+                        });
 
-                    const {
-                        type,
-                        token,
-                        expirationDate,
-                        permissions,
-                        declinedPermissions,
-                        userId,
-                    } = loginResult;
+                    const { type, token, userId } = loginResult;
 
                     if (type !== 'success') break;
 

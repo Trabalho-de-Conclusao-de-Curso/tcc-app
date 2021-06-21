@@ -78,6 +78,7 @@ export const LblName = styled.Text`
     margin-top: 10px;
     margin-bottom: 20px;
     color: ${props => props.theme.colors.font.darker};
+    text-align: center;
 `;
 
 export const LblDescription = styled.Text`

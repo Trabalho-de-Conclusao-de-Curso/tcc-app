@@ -2,7 +2,6 @@ import styled from 'styled-components/native';
 
 export const Container = styled.TouchableOpacity`
     width: 100%;
-    height: 100px;
     margin-bottom: 10px;
     background-color: ${props => props.theme.colors.section};
     flex-direction: row;
@@ -36,7 +35,7 @@ export const LblRating = styled.Text`
 
 export const Image = styled.Image`
     width: 100px;
-    height: 100px;
+    height: 100%;
 `;
 
 export const LblName = styled.Text`

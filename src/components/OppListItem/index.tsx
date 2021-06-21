@@ -35,7 +35,7 @@ const OppCard: React.FC<TypeProps> = props => {
     }, [user]);
 
     return (
-        <Container>
+        <Container onPress={onPress}>
             <Image source={{ uri: opp.photos[0] }} />
             <Content>
                 <LblName>{opp.name}</LblName>

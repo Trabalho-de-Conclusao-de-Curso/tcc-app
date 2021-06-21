@@ -42,6 +42,7 @@ export const LblName = styled.Text`
     line-height: 37px;
     letter-spacing: 0.2px;
     align-self: center;
+    text-align: center;
     margin-top: 10px;
     margin-bottom: 20px;
     color: ${props => props.theme.colors.font.darker};
